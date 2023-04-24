@@ -13,7 +13,7 @@
         </section>
 
         <section class="second-section">
-          <task-item v-for="task of tasks" :task="task"/>
+          <task-item v-for="(task,index) of tasks" :task="task" :key="task.id" @completeTask="toggleComplete(index,task)" @deleteTask="deleteTask(index)"/>
         </section>
 
       </main>
@@ -24,6 +24,7 @@
 <script>
 import TaskItem from "@/components/TaskItem.vue";
 import PopupWindow from "@/components/PopupWindow.vue";
+
 export default {
     components: {
         PopupWindow,
@@ -81,6 +82,12 @@ export default {
         },
         addNewTask(newTask) {
             this.tasks.push(newTask)
+        },
+        toggleComplete(index,task) {
+          task.complete = !task.complete
+        },
+        deleteTask(index){
+          this.tasks.splice(index,1)
         }
     }
 }

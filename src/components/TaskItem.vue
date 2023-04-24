@@ -4,16 +4,17 @@
     <h2 class="second-section__task-date">{{ task.date }}</h2>
     <h2 class="second-section__task-name">{{ task.task }}</h2>
     <div class="second-section__completion-buttons">
-<!--      <button class="second-section__delete-btn">-->
-<!--        <img src="@/assets/close_icons.svg" alt="close-icon">-->
-<!--      </button>-->
-<!--      <button class="second-section__unfinished-btn">-->
-<!--        Отменить-->
-<!--      </button>-->
+      <button @click="deleteTask(index)" class="second-section__delete-btn">
+        <img src="@/assets/close_icons.svg" alt="close-icon">
+      </button>
+      <button @click="toggleComplete(index,task)" class="second-section__unfinished-btn"
+      v-bind:style="{ backgroundColor: task.complete ? '#007BFF7F' : '#ccaff7',transition: '400ms ease all'} ">
+        {{ task.complete ? 'Отменить' : 'Завершить' }}
+      </button>
 <!--      <button class="second-section__finished-btn">-->
 <!--      Завершить-->
 <!--      </button>-->
-            <input class="second-section__checkbox" type="checkbox" v-model="task.complete">
+<!--            <input class="second-section__checkbox" type="checkbox" v-model="task.complete">-->
     </div>
 
 
@@ -21,11 +22,21 @@
 </template>
 
 <script>
+import index from "vuex";
+
 export default {
     props: {
         task: {
             type: Object,
             required: true,
+        }
+    },
+    methods: {
+        toggleComplete() {
+            this.$emit('completeTask', null )
+        },
+        deleteTask(){
+            this.$emit('deleteTask', null)
         }
     }
 }
@@ -87,20 +98,23 @@ export default {
     }
 
     img {
-      width: 1.4rem;
+      width: 24px;
     }
   }
   &__delete-btn{
     position: absolute;
     background-color: rgba(0,0,0,0);
-    bottom: 55px;
+    //значнеия при двух кнопках
+    //bottom: 55px;
+    //left: 100px;
+    bottom: 20px;
     left: 100px;
     &:hover{
       scale: 1.5;
     }
   }
   &__unfinished-btn{
-    margin-bottom: 10px;
+    //margin-bottom: 10px; // при двух кнопках
     background-color: rgba(0, 123, 255, 0.5);
 
   }
