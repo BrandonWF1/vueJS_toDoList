@@ -12,8 +12,6 @@
         <input class="popup__input-text popup_item" type="text" v-model="newTaskText">
         <input class="popup__input-text popup_item" type="date" v-model="newTaskDate">
         <button class="popup__add-btn popup_item" @click="addNewTask">Добавить</button>
-
-
       </div>
     </form>
   </div>
@@ -21,36 +19,32 @@
 
 <script>
 export default {
-    props: {
-        popupVisible: {
-            type: String,
-            required: true
-        },
-        popupOpacity: {
-            type: Number,
-            required: true
+    data() {
+        return {
+            newTaskText: '',
+            newTaskDate: '',
+            popupVisible: 'none',
+            popupOpacity: 0
         }
     },
-    data() {
-      return{
-          newTaskText: '',
-          newTaskDate: '',
-      }
-    },
-    methods:{
-        closePopup() {
-            this.$emit('closePop', null)
-        },
+    methods: {
         openPopup() {
-            this.$emit('openPop', null)
+            this.popupVisible = 'block'
+            this.popupOpacity = 1
         },
+        closePopup() {
+            this.popupVisible = 'none'
+            this.popupOpacity = 0
+        },
+
         addNewTask() {
-            let inputDate = new Date(this.newTaskDate); // преобразуем введенную дату в объект Date
-            let day = inputDate.getDate().toString().padStart(2, '0'); // получаем день месяца как строку и дополняем его 0 при необходимости
-            let month = (inputDate.getMonth() + 1).toString().padStart(2, '0'); // получаем месяц (начиная с 0) и дополняем его 0 при необходимости
-            let year = inputDate.getFullYear().toString(); // получаем год как строку
-            let formattedDate = `${day}.${month}.${year}`; // создаем строку в нужном формате
-            // ДОПИЛИТЬ ПРОВЕРКУ НА ВВОД ПОЛЬЗОВАТЕЛЯ, ЕСЛИ НИЧЕГО НЕ ВВЕДЕНО НЕ ВЫВОДИТЬ ЭЛЕМЕНТ ВОВСЕ
+            let inputDate = new Date(this.newTaskDate) // преобразуем введенную дату в объект Date
+            let day = inputDate.getDate().toString().padStart(2, '0') // получаем день месяца как строку и дополняем его 0 при необходимости
+            let month = (inputDate.getMonth() + 1).toString().padStart(2, '0') // получаем месяц (начиная с 0) и дополняем его 0 при необходимости
+            let year = inputDate.getFullYear().toString() // получаем год как строку
+            let formattedDate=''
+            if (isNaN(day.toNumber) || isNaN(month.toNumber) || isNaN(year.toNumber) || !day || !month || !year) {formattedDate = ''} //проверяем на наличие значений
+            else {formattedDate = `${day}.${month}.${year}`} // создаем строку в нужном формате
             const newTask = {
                 id: Date.now(),
                 task: this.newTaskText,
@@ -60,9 +54,8 @@ export default {
             // this.tasks.push(newTask)
             this.$emit('createPost', newTask) //передается название и объект (аналог EventListener)
         }
-
-
     }
+
 }
 </script>
 
@@ -70,7 +63,7 @@ export default {
 
 .first-section {
 
-  &__popup_href{
+  &__popup_href {
     position: relative;
     font-size: 1.5rem;
     text-align: center;
@@ -93,6 +86,7 @@ export default {
       transition: 500ms ease all;
     }
   }
+
   &__popup_window {
     position: fixed;
     width: 100%;
@@ -107,6 +101,7 @@ export default {
   }
 
 }
+
 .popup {
   position: absolute;
   display: flex;
@@ -181,7 +176,6 @@ export default {
     }
   }
 }
-
 
 
 </style>

@@ -64,22 +64,13 @@ export default {
                     date: '01.12.2021'
                 }
             ],
-            popupVisible: 'none',
-            popupOpacity: 0,
+
             newTaskText: '',
             newTaskDate: '',
         }
     },
 
     methods: {
-        openPopup() {
-            this.popupVisible = 'block'
-            this.popupOpacity = 1
-        },
-        closePopup() {
-            this.popupVisible = 'none'
-            this.popupOpacity = 0
-        },
         addNewTask(newTask) {
             this.tasks.push(newTask)
         },

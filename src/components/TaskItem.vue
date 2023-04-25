@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import index from "vuex";
+
 
 export default {
     props: {
