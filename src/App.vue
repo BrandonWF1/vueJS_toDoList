@@ -8,7 +8,7 @@
 
         <section class="first-section">
           <div class="first-section__add-task">
-          <popup-window :popup-opacity="popupOpacity" :popup-visible="popupVisible" @createPost="addNewTask" @closePop="closePopup" @openPop="openPopup"/>
+          <popup-window  @createPost="addNewTask" />
           </div>
         </section>
 
@@ -64,9 +64,6 @@ export default {
                     date: '01.12.2021'
                 }
             ],
-
-            newTaskText: '',
-            newTaskDate: '',
         }
     },
 

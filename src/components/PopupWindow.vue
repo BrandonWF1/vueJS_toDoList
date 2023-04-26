@@ -42,9 +42,7 @@ export default {
             let day = inputDate.getDate().toString().padStart(2, '0') // получаем день месяца как строку и дополняем его 0 при необходимости
             let month = (inputDate.getMonth() + 1).toString().padStart(2, '0') // получаем месяц (начиная с 0) и дополняем его 0 при необходимости
             let year = inputDate.getFullYear().toString() // получаем год как строку
-            let formattedDate=''
-            if (isNaN(day.toNumber) || isNaN(month.toNumber) || isNaN(year.toNumber) || !day || !month || !year) {formattedDate = ''} //проверяем на наличие значений
-            else {formattedDate = `${day}.${month}.${year}`} // создаем строку в нужном формате
+            let formattedDate = `${day}.${month}.${year}` // создаем строку в нужном формате
             const newTask = {
                 id: Date.now(),
                 task: this.newTaskText,
